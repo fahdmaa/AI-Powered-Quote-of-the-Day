@@ -3,6 +3,7 @@ const quoteAuthor = document.getElementById('quote-author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
 const saveFavoriteBtn = document.getElementById('save-favorite-btn');
 const showFavoritesBtn = document.getElementById('show-favorites-btn');
+const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
 
@@ -63,6 +64,13 @@ function displayFavorites() {
   });
 }
 
+function clearFavorites() {
+  if (confirm('Are you sure you want to clear all your favorites?')) {
+    localStorage.removeItem('favoriteQuotes');
+    displayFavorites();
+  }
+}
+
 // On load
 getQuote();
 displayFavorites();
@@ -73,3 +81,4 @@ saveFavoriteBtn.addEventListener('click', saveFavorite);
 showFavoritesBtn.addEventListener('click', () => {
   favoritesSection.classList.toggle('show');
 });
+clearFavoritesBtn.addEventListener('click', clearFavorites);
