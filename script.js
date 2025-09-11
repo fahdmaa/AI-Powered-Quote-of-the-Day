@@ -1,3 +1,4 @@
+// DOM Elements
 const quoteText = document.getElementById('quote-text');
 const quoteAuthor = document.getElementById('quote-author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
@@ -6,6 +7,16 @@ const showFavoritesBtn = document.getElementById('show-favorites-btn');
 const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
+
+// Modal Elements
+const modal = document.getElementById('custom-modal');
+const modalMessage = document.getElementById('modal-message');
+const modalConfirmBtn = document.getElementById('modal-confirm-btn');
+const modalCancelBtn = document.getElementById('modal-cancel-btn');
+
+let onConfirmCallback = null;
+
+// --- API and Core Functions ---
 
 async function getQuote() {
   const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
@@ -41,7 +52,7 @@ function saveFavorite() {
   const isDuplicate = favorites.some(fav => fav.quote === currentQuoteText);
 
   if (isDuplicate) {
-    alert('This quote is already in your favorites!');
+    showModal('This quote is already in your favorites!');
     return;
   }
 
@@ -65,20 +76,66 @@ function displayFavorites() {
 }
 
 function clearFavorites() {
-  if (confirm('Are you sure you want to clear all your favorites?')) {
+  showModal('Are you sure you want to clear all your favorites?', () => {
     localStorage.removeItem('favoriteQuotes');
     displayFavorites();
-  }
+  });
 }
 
-// On load
-getQuote();
-displayFavorites();
+// --- Modal Logic ---
 
-// Event Listeners
+function showModal(message, confirmCallback) {
+  modalMessage.textContent = message;
+  onConfirmCallback = confirmCallback;
+
+  if (confirmCallback) {
+    modalCancelBtn.style.display = 'inline-block';
+    modalConfirmBtn.textContent = 'Confirm';
+  } else {
+    // Alert mode
+    modalCancelBtn.style.display = 'none';
+    modalConfirmBtn.textContent = 'OK';
+  }
+
+  modal.classList.add('active');
+}
+
+function hideModal() {
+  modal.classList.remove('active');
+  onConfirmCallback = null; // Reset callback
+}
+
+
+// --- Event Listeners ---
+
 newQuoteBtn.addEventListener('click', getQuote);
 saveFavoriteBtn.addEventListener('click', saveFavorite);
+clearFavoritesBtn.addEventListener('click', clearFavorites);
+
 showFavoritesBtn.addEventListener('click', () => {
   favoritesSection.classList.toggle('show');
+  if (favoritesSection.classList.contains('show')) {
+    showFavoritesBtn.textContent = 'Hide Favorites';
+  } else {
+    showFavoritesBtn.textContent = 'Show Favorites';
+  }
 });
-clearFavoritesBtn.addEventListener('click', clearFavorites);
+
+modalConfirmBtn.addEventListener('click', () => {
+  if (onConfirmCallback) {
+    onConfirmCallback();
+  }
+  hideModal();
+});
+
+modalCancelBtn.addEventListener('click', hideModal);
+modal.addEventListener('click', (e) => {
+    if (e.target === modal) {
+        hideModal();
+    }
+});
+
+
+// --- On load ---
+getQuote();
+displayFavorites();
