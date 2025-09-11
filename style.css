@@ -250,3 +250,30 @@ button:hover {
     background-color: #2a2a2a;
     color: #FFFFFF;
 }
+
+/* Favorites Search Styles */
+#favorite-search {
+    width: 80%;
+    max-width: 400px;
+    margin-bottom: 1rem;
+    padding: 10px 15px;
+    color: #fff;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+
+    /* Glassmorphism Styles */
+    background: rgba(25, 25, 25, 0.2);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+#favorite-search::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.hidden {
+    display: none;
+}
