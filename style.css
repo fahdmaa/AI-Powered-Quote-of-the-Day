@@ -199,3 +199,34 @@ button:hover {
 .share-menu a:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
+
+/* Filter Dropdown Styles */
+.filter-container {
+    margin-bottom: 2rem;
+}
+
+#category-filter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    padding: 0.8rem 1.5rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    width: 50%;
+    max-width: 300px;
+    text-align: center;
+
+    /* Glassmorphism Styles */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+#category-filter option {
+    background-color: #2a2a2a;
+    color: #FFFFFF;
+}
