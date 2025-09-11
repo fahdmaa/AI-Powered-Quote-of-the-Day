@@ -31,6 +31,13 @@ let currentCategory = '';
 // --- API and Core Functions ---
 
 async function getQuote() {
+  // Add fade-out animation
+  quoteText.classList.add('fade-out');
+  quoteAuthor.classList.add('fade-out');
+
+  // Wait for fade-out to complete
+  await new Promise(resolve => setTimeout(resolve, 300));
+
   let apiUrl = 'https://api.api-ninjas.com/v1/quotes';
   if (currentCategory) {
     apiUrl += `?category=${currentCategory}`;
@@ -46,6 +53,13 @@ async function getQuote() {
     displayQuote(data);
   } catch (error) {
     console.error('Whoops, no quote', error);
+    displayQuote([]); // Display error message
+  } finally {
+    // Fade in new content
+    quoteText.classList.remove('fade-out');
+    quoteAuthor.classList.remove('fade-out');
+    quoteText.classList.add('fade-in');
+    quoteAuthor.classList.add('fade-in');
   }
 }
 
