@@ -7,6 +7,7 @@ const showFavoritesBtn = document.getElementById('show-favorites-btn');
 const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
+const categoryFilter = document.getElementById('category-filter');
 
 // Share Elements
 const shareBtn = document.getElementById('share-btn');
@@ -21,12 +22,17 @@ const modalMessage = document.getElementById('modal-message');
 const modalConfirmBtn = document.getElementById('modal-confirm-btn');
 const modalCancelBtn = document.getElementById('modal-cancel-btn');
 
+// State
 let onConfirmCallback = null;
+let currentCategory = '';
 
 // --- API and Core Functions ---
 
 async function getQuote() {
-  const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
+  let apiUrl = 'https://api.api-ninjas.com/v1/quotes';
+  if (currentCategory) {
+    apiUrl += `?category=${currentCategory}`;
+  }
   const apiKey = 'D6gdfnjzjvUtwiotDT0Dbw==ewi5iGdgGP7mwSXY';
   try {
     const response = await fetch(apiUrl, {
@@ -105,8 +111,6 @@ function shareQuote(platform, event) {
       finalUrl = `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`;
       break;
     case 'linkedin':
-      // Note: LinkedIn has a simpler text-based sharing URL now.
-      // The old 'shareArticle' is deprecated. The full text will be placed in the post body.
       finalUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodedText}%20${encodedUrl}`;
       break;
     case 'facebook':
@@ -159,6 +163,11 @@ showFavoritesBtn.addEventListener('click', () => {
 
 shareBtn.addEventListener('click', () => {
     shareOptions.classList.toggle('show');
+});
+
+categoryFilter.addEventListener('change', (e) => {
+    currentCategory = e.target.value;
+    getQuote();
 });
 
 shareWhatsapp.addEventListener('click', (e) => shareQuote('whatsapp', e));
