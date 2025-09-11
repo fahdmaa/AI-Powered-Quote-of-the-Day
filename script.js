@@ -8,6 +8,7 @@ const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
 const categoryFilter = document.getElementById('category-filter');
+const favoriteSearch = document.getElementById('favorite-search');
 
 // Share Elements
 const shareBtn = document.getElementById('share-btn');
@@ -174,6 +175,20 @@ shareBtn.addEventListener('click', () => {
 categoryFilter.addEventListener('change', (e) => {
     currentCategory = e.target.value;
     getQuote();
+});
+
+favoriteSearch.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const favoriteItems = favoritesList.querySelectorAll('li');
+
+    favoriteItems.forEach(item => {
+        const itemText = item.textContent.toLowerCase();
+        if (itemText.includes(searchTerm)) {
+            item.classList.remove('hidden');
+        } else {
+            item.classList.add('hidden');
+        }
+    });
 });
 
 shareWhatsapp.addEventListener('click', (e) => shareQuote('whatsapp', e));
