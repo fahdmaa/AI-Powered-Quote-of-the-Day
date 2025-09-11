@@ -1,6 +1,7 @@
 const quoteText = document.getElementById('quote-text');
 const quoteAuthor = document.getElementById('quote-author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
+const saveFavoriteBtn = document.getElementById('save-favorite-btn');
 
 async function getQuote() {
   const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
@@ -29,8 +30,19 @@ function displayQuote(quotes) {
   }
 }
 
+function saveFavorite() {
+  const favorites = JSON.parse(localStorage.getItem('favoriteQuotes')) || [];
+  const currentQuote = {
+    quote: quoteText.textContent,
+    author: quoteAuthor.textContent
+  };
+  favorites.push(currentQuote);
+  localStorage.setItem('favoriteQuotes', JSON.stringify(favorites));
+}
+
 // Get Quote on load
 getQuote();
 
 // Event Listeners
 newQuoteBtn.addEventListener('click', getQuote);
+saveFavoriteBtn.addEventListener('click', saveFavorite);
