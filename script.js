@@ -8,6 +8,13 @@ const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
 
+// Share Elements
+const shareBtn = document.getElementById('share-btn');
+const shareOptions = document.getElementById('share-options');
+const shareWhatsapp = document.getElementById('share-whatsapp');
+const shareLinkedin = document.getElementById('share-linkedin');
+const shareFacebook = document.getElementById('share-facebook');
+
 // Modal Elements
 const modal = document.getElementById('custom-modal');
 const modalMessage = document.getElementById('modal-message');
@@ -82,6 +89,35 @@ function clearFavorites() {
   });
 }
 
+// --- Share Logic ---
+function shareQuote(platform, event) {
+  event.preventDefault();
+  const quote = quoteText.textContent;
+  const author = quoteAuthor.textContent;
+  const websiteUrl = 'https://ai-powered-quote-of-the-day.netlify.app/';
+  const shareText = `Check out this quote: "${quote}" - ${author}. Find more inspiration here:`;
+  const encodedText = encodeURIComponent(shareText);
+  const encodedUrl = encodeURIComponent(websiteUrl);
+  let finalUrl = '';
+
+  switch (platform) {
+    case 'whatsapp':
+      finalUrl = `https://api.whatsapp.com/send?text=${encodedText}%20${encodedUrl}`;
+      break;
+    case 'linkedin':
+      // Note: LinkedIn has a simpler text-based sharing URL now.
+      // The old 'shareArticle' is deprecated. The full text will be placed in the post body.
+      finalUrl = `https://www.linkedin.com/feed/?shareActive=true&text=${encodedText}%20${encodedUrl}`;
+      break;
+    case 'facebook':
+      finalUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodedUrl}&quote=${encodedText}`;
+      break;
+  }
+
+  window.open(finalUrl, '_blank');
+}
+
+
 // --- Modal Logic ---
 
 function showModal(message, confirmCallback) {
@@ -120,6 +156,14 @@ showFavoritesBtn.addEventListener('click', () => {
     showFavoritesBtn.textContent = 'Show Favorites';
   }
 });
+
+shareBtn.addEventListener('click', () => {
+    shareOptions.classList.toggle('show');
+});
+
+shareWhatsapp.addEventListener('click', (e) => shareQuote('whatsapp', e));
+shareLinkedin.addEventListener('click', (e) => shareQuote('linkedin', e));
+shareFacebook.addEventListener('click', (e) => shareQuote('facebook', e));
 
 modalConfirmBtn.addEventListener('click', () => {
   if (onConfirmCallback) {

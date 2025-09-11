@@ -110,3 +110,53 @@ button:hover {
     font-size: 1.1rem;
     line-height: 1.5;
 }
+
+/* Share Button Styles */
+.button-group {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.share-container {
+    position: relative;
+    display: inline-block;
+}
+
+.share-menu {
+    display: none; /* Hidden by default */
+    position: absolute;
+    bottom: 100%; /* Position above the button */
+    left: 50%;
+    transform: translateX(-50%);
+    margin-bottom: 10px;
+    width: max-content;
+    z-index: 100;
+
+    /* Glassmorphism Styles */
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    padding: 0.5rem;
+}
+
+.share-menu.show {
+    display: block;
+}
+
+.share-menu a {
+    display: block;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.share-menu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
