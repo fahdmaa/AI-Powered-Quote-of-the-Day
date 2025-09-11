@@ -2,7 +2,9 @@ const quoteText = document.getElementById('quote-text');
 const quoteAuthor = document.getElementById('quote-author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
 const saveFavoriteBtn = document.getElementById('save-favorite-btn');
+const showFavoritesBtn = document.getElementById('show-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
+const favoritesSection = document.querySelector('.favorites-section');
 
 async function getQuote() {
   const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
@@ -33,8 +35,17 @@ function displayQuote(quotes) {
 
 function saveFavorite() {
   const favorites = JSON.parse(localStorage.getItem('favoriteQuotes')) || [];
+  const currentQuoteText = quoteText.textContent;
+
+  const isDuplicate = favorites.some(fav => fav.quote === currentQuoteText);
+
+  if (isDuplicate) {
+    alert('This quote is already in your favorites!');
+    return;
+  }
+
   const currentQuote = {
-    quote: quoteText.textContent,
+    quote: currentQuoteText,
     author: quoteAuthor.textContent
   };
   favorites.push(currentQuote);
@@ -59,3 +70,6 @@ displayFavorites();
 // Event Listeners
 newQuoteBtn.addEventListener('click', getQuote);
 saveFavoriteBtn.addEventListener('click', saveFavorite);
+showFavoritesBtn.addEventListener('click', () => {
+  favoritesSection.classList.toggle('show');
+});
