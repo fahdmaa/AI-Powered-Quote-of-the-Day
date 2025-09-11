@@ -1,5 +1,6 @@
 const quoteText = document.getElementById('quote-text');
 const quoteAuthor = document.getElementById('quote-author');
+const newQuoteBtn = document.getElementById('new-quote-btn');
 
 async function getQuote() {
   const apiUrl = 'https://api.api-ninjas.com/v1/quotes';
@@ -30,3 +31,6 @@ function displayQuote(quotes) {
 
 // Get Quote on load
 getQuote();
+
+// Event Listeners
+newQuoteBtn.addEventListener('click', getQuote);
