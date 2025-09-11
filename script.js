@@ -4,6 +4,7 @@ const quoteAuthor = document.getElementById('quote-author');
 const newQuoteBtn = document.getElementById('new-quote-btn');
 const saveFavoriteBtn = document.getElementById('save-favorite-btn');
 const showFavoritesBtn = document.getElementById('show-favorites-btn');
+const showFavoritesText = document.getElementById('show-favorites-text');
 const clearFavoritesBtn = document.getElementById('clear-favorites-btn');
 const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
@@ -162,9 +163,9 @@ clearFavoritesBtn.addEventListener('click', clearFavorites);
 showFavoritesBtn.addEventListener('click', () => {
   favoritesSection.classList.toggle('show');
   if (favoritesSection.classList.contains('show')) {
-    showFavoritesBtn.textContent = 'Hide Favorites';
+    showFavoritesText.textContent = 'Hide Favorites';
   } else {
-    showFavoritesBtn.textContent = 'Show Favorites';
+    showFavoritesText.textContent = 'Show Favorites';
   }
 });
 
