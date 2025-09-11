@@ -48,6 +48,12 @@ async function getQuote() {
 }
 
 function displayQuote(quotes) {
+  if (!quotes || quotes.length === 0) {
+    quoteText.textContent = 'No quotes found in this category. Try another!';
+    quoteAuthor.textContent = '';
+    return;
+  }
+
   const quote = quotes[0];
   quoteText.textContent = quote.quote;
 

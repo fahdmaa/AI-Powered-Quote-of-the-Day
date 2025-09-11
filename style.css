@@ -203,20 +203,15 @@ button:hover {
 /* Filter Dropdown Styles */
 .filter-container {
     margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
 }
 
-#category-filter {
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-    padding: 0.8rem 1.5rem;
-    color: #FFFFFF;
-    cursor: pointer;
-    font-family: 'Inter', sans-serif;
-    font-size: 1rem;
+.select-wrapper {
+    position: relative;
+    display: inline-block;
     width: 50%;
     max-width: 300px;
-    text-align: center;
 
     /* Glassmorphism Styles */
     background: rgba(255, 255, 255, 0.15);
@@ -224,6 +219,31 @@ button:hover {
     border: 1px solid rgba(255, 255, 255, 0.2);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.select-wrapper::after {
+    content: '▼';
+    font-size: 0.8rem;
+    position: absolute;
+    top: 50%;
+    right: 1.2rem;
+    transform: translateY(-50%);
+    pointer-events: none; /* Make sure the arrow doesn't block clicks */
+}
+
+#category-filter {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    color: #FFFFFF;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    background: transparent;
+    border: none;
 }
 
 #category-filter option {
