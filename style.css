@@ -299,3 +299,19 @@ button svg {
 .hidden {
     display: none;
 }
+
+/* Premium Notification Styles */
+#premium-notification {
+    color: #ffb8b8;
+    font-size: 0.9rem;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    pointer-events: none;
+}
+
+#premium-notification.visible {
+    opacity: 1;
+    transform: translateY(0);
+}

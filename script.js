@@ -10,6 +10,7 @@ const favoritesList = document.getElementById('favorites-list');
 const favoritesSection = document.querySelector('.favorites-section');
 const categoryFilter = document.getElementById('category-filter');
 const favoriteSearch = document.getElementById('favorite-search');
+const premiumNotification = document.getElementById('premium-notification');
 
 // Share Elements
 const shareBtn = document.getElementById('share-btn');
@@ -188,7 +189,27 @@ shareBtn.addEventListener('click', () => {
 });
 
 categoryFilter.addEventListener('change', (e) => {
-    currentCategory = e.target.value;
+    const selectedValue = e.target.value;
+
+    if (selectedValue !== "") {
+        // Show premium notification
+        premiumNotification.classList.add('visible');
+
+        // Hide notification after 3 seconds
+        setTimeout(() => {
+            premiumNotification.classList.remove('visible');
+        }, 3000);
+
+        // Reset the dropdown back to "All Categories"
+        e.target.value = "";
+
+        // Do not proceed to fetch a quote
+        return;
+    }
+
+    // If "All Categories" is selected, proceed as normal
+    currentCategory = selectedValue;
+    premiumNotification.classList.remove('visible'); // Ensure it's hidden
     getQuote();
 });
 
