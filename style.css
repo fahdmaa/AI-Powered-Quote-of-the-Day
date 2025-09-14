@@ -317,7 +317,7 @@ button svg {
 }
 
 #app-logo {
-    max-width: 180px;
+    max-width: 54px;
     display: block;
     margin: 0 auto 30px auto;
     transition: transform 0.3s ease-in-out, filter 0.3s ease-in-out;
